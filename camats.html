@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8" />
-    <title>Estadísticas de Camats</title>
+    <title>Estadístiques de Camats</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="./style.css" rel="stylesheet" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script defer src="./script.js"></script>
 </head>
-<body class="camats-stats">
+<body class="camats-stats stats">
     <div class="app">
-        <h1>🟢 Estadísticas de Camats</h1>
-        <p class="subtitle">Progreso y consistencia a lo largo del tiempo.</p>
+        <h1>🟢 Estadístiques de Camats</h1>
+        <p class="subtitle">Progrés i consistència al llarg del temps.</p>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <h2 id="streak-camats">0</h2>
-                <p>Semanas con 3+ Sesiones</p>
+                <p>Setmanes amb 3+ Sessions</p>
             </div>
             <div class="stat-card">
                 <h2>💪</h2>
-                <p>Máximo Press Banca</p>
+                <p>Màxim Press Banca</p>
             </div>
             <div class="stat-card">
                 <h2>🔥</h2>
-                <p>Mejor Sesión</p>
+                <p>Millor Sessió</p>
             </div>
         </div>
 
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Progresión de Fuerza</h3>
+                <h3>Progressió de Força</h3>
                 <select id="exerciseSelectCamats"></select>
             </div>
             <div class="chart-container">
@@ -41,7 +41,7 @@
 
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Volumen Total Levantado</h3>
+                <h3>Volum Total Aixecat</h3>
             </div>
             <div class="chart-container">
                 <canvas id="camatsChart2"></canvas>
@@ -50,7 +50,7 @@
         
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Frecuencia Semanal (Últimas 4)</h3>
+                <h3>Freqüència Setmanal (Últimes 4)</h3>
             </div>
             <div class="chart-container">
                 <canvas id="camatsChart3"></canvas>
@@ -60,6 +60,10 @@
     </div>
 
     <nav class="nav-fixed">
+        <a href="rutina.html">
+            <span>📝</span>
+            <span>Rutina</span>
+        </a>
         <a href="arnau.html">
             <span>🔵</span>
             <span>Arnau</span>
