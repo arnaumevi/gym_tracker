@@ -4,11 +4,15 @@
 // Si la web no carrega, assegura't que l'Excel estigui 'Publicat a la web' (CSV).
 // ==========================================
 
-// Enllaç per la pestanya Arnau (GID: 0)
-const URL_ARNAU = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/pub?gid=0&single=true&output=csv";
+// DOCUMENT ID: 1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw
+// GID Arnau: 0
+// GID Camats: 1482168485
 
-// Enllaç per la pestanya Camats (GID: 1482168485)
-const URL_CAMATS = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/pub?gid=1482168485&single=true&output=csv";
+// Enllaç per la pestanya Arnau
+const URL_ARNAU = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/export?format=csv&gid=0";
+
+// Enllaç per la pestanya Camats
+const URL_CAMATS = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/export?format=csv&gid=1482168485";
 
 let chartInstance = null;
 
@@ -169,4 +173,5 @@ function calculateStreak(data, elementId) {
 }
 
 // Arrancar
+
 init();
