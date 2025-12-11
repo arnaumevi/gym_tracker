@@ -1,58 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Progreso Arnau 🚀</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Estadísticas de Arnau</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./style.css" rel="stylesheet" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script defer src="./script.js"></script>
 </head>
 <body class="arnau-stats">
     <div class="app">
-        <header>
-            <h1>🚀 Progreso de Arnau</h1>
-            <p style="color:var(--accent-arnau);">¡Cada sesión te acerca a tu 1RM de ensueño!</p>
-            <div class="nav-grid">
-                <a href="index.html" class="btn-nav btn-back">⬅️ Rutina</a>
-                <a href="camats.html" class="btn-nav btn-camats">Progreso Camats 📈</a>
-                <a href="vs.html" class="btn-nav btn-vs">Desafío VS ⚔️</a>
-            </div>
-        </header>
+        <h1>🔵 Estadísticas de Arnau</h1>
+        <p class="subtitle">Progreso y consistencia a lo largo del tiempo.</p>
 
         <div class="stats-grid">
-            <div class="widget widget-quote">
-                "El dolor de hoy es la fuerza de mañana." - **Sigue así, Arnau.**
+            <div class="stat-card">
+                <h2 id="streak-arnau">0</h2>
+                <p>Semanas con 3+ Sesiones</p>
             </div>
-
-            <section class="day-card progress-card">
-                <h2>🔥 Racha de Entrenamientos</h2>
-                <div class="streak-box">
-                    <div class="streak-item">
-                        <h3 style="color:var(--accent-arnau);">Semanas Completadas (3 días/sem)</h3>
-                        <p class="streak-num" id="streak-arnau">0</p>
-                    </div>
+            <div class="stat-card">
+                <h2>💪</h2>
+                <p>Máximo Press Banca</p>
                 </div>
-            </section>
-
-            <section class="day-card progress-card">
-                <h2>📈 Progresión de Fuerza (Máximo Kg)</h2>
-                <label for="exerciseSelectArnau" style="font-size:0.9rem; color:var(--text-muted);">Selecciona un levantamiento clave:</label>
-                <select id="exerciseSelectArnau"></select>
-                <div class="chart-container">
-                    <canvas id="arnauChart1"></canvas>
+            <div class="stat-card">
+                <h2>🔥</h2>
+                <p>Mejor Sesión</p>
                 </div>
-            </section>
-            
-            <section class="day-card progress-card">
-                <h2>📊 Volumen Total Levantado (Kg x Reps)</h2>
-                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Suma total del peso levantado por sesión.</p>
-                <div class="chart-container">
-                    <canvas id="arnauChart2"></canvas>
-                </div>
-            </section>
         </div>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Progresión de Fuerza</h3>
+                <select id="exerciseSelectArnau"></select>
+            </div>
+            <div class="chart-container">
+                <canvas id="arnauChart1"></canvas>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Volumen Total Levantado</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="arnauChart2"></canvas>
+            </div>
+        </section>
+        
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Frecuencia Semanal (Últimas 4)</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="arnauChart3"></canvas>
+            </div>
+        </section>
+
     </div>
-    <script src="script.js"></script>
+
+    <nav class="nav-fixed">
+        <a href="arnau.html" class="arnau-active">
+            <span>🔵</span>
+            <span>Arnau</span>
+        </a>
+        <a href="camats.html">
+            <span>🟢</span>
+            <span>Camats</span>
+        </a>
+        <a href="vs.html">
+            <span>🆚</span>
+            <span>VS</span>
+        </a>
+    </nav>
 </body>
 </html>
