@@ -8,11 +8,20 @@
 // GID Arnau: 0
 // GID Camats: 1482168485
 
-// Enllaç per la pestanya Arnau
-const URL_ARNAU = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/export?format=csv&gid=0";
+// script.js
 
-// Enllaç per la pestanya Camats
-const URL_CAMATS = "https://docs.google.com/spreadsheets/d/1eB7Y4bntdhIl3je4x28VuHQVNraavY7hPN1qa3yQvjw/export?format=csv&gid=1482168485";
+// ⚠️ PEGA AQUÍ LA URL BASE QUE HAS COPIADO EN EL PASO ANTERIOR (DEBE TERMINAR EN /pub)
+const BASE_URL_PUBLISHED = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRblUmox0xuv8DtJfqboC1UXQ8tOEf4aS5PmdrHabaHgOsUdVQbUWtHjKXQF6owpG2xEOU6ekkG2idk/pub"; 
+
+// Arnau (GID: 0)
+// Añadimos: ?gid=0&single=true&output=csv para forzar la lectura de esa pestaña
+const URL_ARNAU = `${BASE_URL_PUBLISHED}?gid=0&single=true&output=csv`;
+
+// Camats (GID: 1482168485)
+// Añadimos: ?gid=1482168485&single=true&output=csv para forzar la lectura de esta otra pestaña
+const URL_CAMATS = `${BASE_URL_PUBLISHED}?gid=1482168485&single=true&output=csv`;
+
+// ... el resto del código (init, fetchData, etc.) sigue igual y ahora SÍ podrá leer las dos fuentes.
 
 let chartInstance = null;
 
@@ -175,3 +184,4 @@ function calculateStreak(data, elementId) {
 // Arrancar
 
 init();
+
