@@ -1,13 +1,13 @@
-/* style.css */
+/* style.css (Sense canvis, manté l'estil) */
 :root {
     --bg-main: #020617; /* Fondo muy oscuro */
     --bg-card: #0f172a; /* Fondo de tarjetas */
     --text-primary: #f8fafc; /* Blanco para texto principal */
     --text-secondary: #94a3b8; /* Gris claro para texto secundario */
     --border-soft: #1e293b; /* Borde sutil */
-    --color-arnau: #3b82f6; /* Azul brillante */
-    --color-camats: #10b981; /* Verde esmeralda */
-    --color-vs: #f59e0b; /* Amarillo/Naranja para contraste */
+    --color-arnau: #3b82f6; /* Blau brillant */
+    --color-camats: #10b981; /* Verd esmeralda */
+    --color-vs: #f59e0b; /* Groc/Taronja per contrast */
     --shadow-strong: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -18,14 +18,14 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* Fuente moderna */
+    font-family: 'Inter', sans-serif; /* Font moderna */
     background: var(--bg-main);
     color: var(--text-primary);
     line-height: 1.6;
-    padding-bottom: 80px; /* Espacio para la nav fija */
+    padding-bottom: 80px; /* Espai per a la nav fixa */
 }
 
-/* === Contenedor Principal === */
+/* === Contenidor Principal === */
 .app {
     max-width: 900px;
     margin: 0 auto;
@@ -47,7 +47,7 @@ h1 {
     font-size: 1rem;
 }
 
-/* === Navegación Fija (Mobile) === */
+/* === Navegació Fixa (Mobile) === */
 .nav-fixed {
     position: fixed;
     bottom: 0;
@@ -74,7 +74,7 @@ h1 {
 }
 
 .nav-fixed a.active {
-    color: var(--color-vs); /* Color activo general */
+    color: var(--color-vs); /* Color actiu general */
 }
 
 .nav-fixed a.arnau-active {
@@ -94,7 +94,7 @@ h1 {
     margin-top: 4px;
 }
 
-/* === Tarjetas de Estadísticas (Cards) === */
+/* === Targetes d'Estadístiques (Cards) === */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -122,7 +122,7 @@ h1 {
     color: var(--text-secondary);
 }
 
-/* Colores dinámicos para las estadísticas */
+/* Colors dinàmics per a les estadístiques */
 .arnau-stats .stat-card h2,
 .vs-stats .arnau-streak h2 {
     color: var(--color-arnau);
@@ -133,7 +133,7 @@ h1 {
     color: var(--color-camats);
 }
 
-/* === Contenedor de Gráficos === */
+/* === Contenidor de Gràfics === */
 .chart-section {
     background-color: var(--bg-card);
     padding: 1rem;
@@ -155,7 +155,7 @@ h1 {
     font-weight: 600;
 }
 
-/* Selectores de Ejercicios (Dropdowns) */
+/* Selectors d'Exercicis (Dropdowns) */
 select {
     padding: 0.5rem;
     border-radius: 8px;
@@ -163,7 +163,7 @@ select {
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-size: 0.9rem;
-    appearance: none; /* Eliminar el estilo por defecto en algunos navegadores */
+    appearance: none; /* Eliminar l'estil per defecte en alguns navegadors */
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -172,14 +172,14 @@ select {
     cursor: pointer;
 }
 
-/* Estilos de Chart.js */
+/* Estils de Chart.js */
 .chart-container {
-    height: 300px; /* Altura fija para móviles */
+    height: 300px; /* Alçada fixa per a mòbils */
     width: 100%;
     margin: 0 auto;
 }
 
-/* Notas de error */
+/* Notes d'error */
 .error-message {
     color: #f87171;
     text-align: center;
@@ -191,7 +191,7 @@ select {
     font-size: 0.9rem;
 }
 
-/* Media Query para Tablet/Desktop */
+/* Media Query per a Tablet/Desktop */
 @media (min-width: 600px) {
     body {
         padding-bottom: 0;
