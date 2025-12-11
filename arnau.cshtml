@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Progreso Arnau 🚀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body class="arnau-stats">
+    <div class="app">
+        <header>
+            <h1>🚀 Progreso de Arnau</h1>
+            <p style="color:var(--accent-arnau);">¡Cada sesión te acerca a tu 1RM de ensueño!</p>
+            <div class="nav-grid">
+                <a href="index.html" class="btn-nav btn-back">⬅️ Rutina</a>
+                <a href="camats.html" class="btn-nav btn-camats">Progreso Camats 📈</a>
+                <a href="vs.html" class="btn-nav btn-vs">Desafío VS ⚔️</a>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="widget widget-quote">
+                "El dolor de hoy es la fuerza de mañana." - **Sigue así, Arnau.**
+            </div>
+
+            <section class="day-card progress-card">
+                <h2>🔥 Racha de Entrenamientos</h2>
+                <div class="streak-box">
+                    <div class="streak-item">
+                        <h3 style="color:var(--accent-arnau);">Semanas Completadas (3 días/sem)</h3>
+                        <p class="streak-num" id="streak-arnau">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="day-card progress-card">
+                <h2>📈 Progresión de Fuerza (Máximo Kg)</h2>
+                <label for="exerciseSelectArnau" style="font-size:0.9rem; color:var(--text-muted);">Selecciona un levantamiento clave:</label>
+                <select id="exerciseSelectArnau"></select>
+                <div class="chart-container">
+                    <canvas id="arnauChart1"></canvas>
+                </div>
+            </section>
+            
+            <section class="day-card progress-card">
+                <h2>📊 Volumen Total Levantado (Kg x Reps)</h2>
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Suma total del peso levantado por sesión.</p>
+                <div class="chart-container">
+                    <canvas id="arnauChart2"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
