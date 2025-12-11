@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8" />
     <title>Comparativa VS</title>
@@ -9,29 +9,29 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script defer src="./script.js"></script>
 </head>
-<body class="vs-stats">
+<body class="vs-stats stats">
     <div class="app">
-        <h1>🆚 Duelo de Titanes</h1>
-        <p class="subtitle">Comparativa directa de progreso y consistencia.</p>
+        <h1>🆚 Duel de Titans</h1>
+        <p class="subtitle">Comparativa directa de progrés i consistència.</p>
 
         <div class="stats-grid">
             <div class="stat-card arnau-streak">
                 <h2 id="streak-arnau-vs">0</h2>
-                <p>🔵 Semanas 3+ Arnau</p>
+                <p>🔵 Setmanes 3+ Arnau</p>
             </div>
             <div class="stat-card camats-streak">
                 <h2 id="streak-camats-vs">0</h2>
-                <p>🟢 Semanas 3+ Camats</p>
+                <p>🟢 Setmanes 3+ Camats</p>
             </div>
             <div class="stat-card">
                 <h2>🏆</h2>
-                <p>Mejor Levantamiento Global</p>
+                <p>Millor Aixecament Global</p>
             </div>
         </div>
 
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Comparativa de Fuerza Máxima</h3>
+                <h3>Comparativa de Força Màxima</h3>
                 <select id="exerciseSelectVS"></select>
             </div>
             <div class="chart-container">
@@ -41,7 +41,7 @@
 
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Volumen Semanal (Últimas 4)</h3>
+                <h3>Volum Setmanal (Últimes 4)</h3>
             </div>
             <div class="chart-container">
                 <canvas id="vsChart2"></canvas>
@@ -50,7 +50,7 @@
         
         <section class="chart-section">
             <div class="chart-header">
-                <h3>Consistencia (Sesiones por Semana)</h3>
+                <h3>Consistència (Sessions per Setmana)</h3>
             </div>
             <div class="chart-container">
                 <canvas id="vsChart3"></canvas>
@@ -60,6 +60,10 @@
     </div>
 
     <nav class="nav-fixed">
+        <a href="rutina.html">
+            <span>📝</span>
+            <span>Rutina</span>
+        </a>
         <a href="arnau.html">
             <span>🔵</span>
             <span>Arnau</span>
