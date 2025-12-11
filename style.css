@@ -1,119 +1,221 @@
+/* style.css */
 :root {
-  --bg-dark: #020617;
-  --bg-light: #0f172a;
-  --card-bg: #1e293b;
-  --accent-arnau: #0ea5e9; /* Azul Neon */
-  --accent-camats: #10b981; /* Verde Menta */
-  --accent-vs: #f97316; /* Naranja Desafío */
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border-color: #334155;
-  --shadow-intense: 0 10px 30px rgba(0,0,0,0.5);
+    --bg-main: #020617; /* Fondo muy oscuro */
+    --bg-card: #0f172a; /* Fondo de tarjetas */
+    --text-primary: #f8fafc; /* Blanco para texto principal */
+    --text-secondary: #94a3b8; /* Gris claro para texto secundario */
+    --border-soft: #1e293b; /* Borde sutil */
+    --color-arnau: #3b82f6; /* Azul brillante */
+    --color-camats: #10b981; /* Verde esmeralda */
+    --color-vs: #f59e0b; /* Amarillo/Naranja para contraste */
+    --shadow-strong: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at top, var(--bg-light) 0, var(--bg-dark) 45%, #000 100%);
-  color: var(--text-main);
-  padding: 20px 15px 40px;
-  line-height: 1.6;
+    font-family: 'Inter', sans-serif; /* Fuente moderna */
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding-bottom: 80px; /* Espacio para la nav fija */
 }
 
-.app { max-width: 960px; margin: 0 auto; }
-
-header { text-align: center; margin-bottom: 30px; }
-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.05em; text-shadow: 0 0 10px rgba(255,255,255,0.1); }
-header p { font-size: 1rem; color: var(--text-muted); }
-
-/* --- Navegación --- */
-.nav-grid {
-  display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
-}
-.btn-nav {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.2s, background 0.3s;
-}
-.btn-nav:hover { transform: translateY(-2px); }
-
-/* Estilos de botones específicos */
-.btn-arnau { background: rgba(14, 165, 233, 0.15); border: 1px solid var(--accent-arnau); color: var(--accent-arnau); }
-.btn-camats { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-camats); color: var(--accent-camats); }
-.btn-vs { background: rgba(249, 115, 22, 0.15); border: 1px solid var(--accent-vs); color: var(--accent-vs); }
-.btn-back { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); }
-
-/* --- Contenido de la Rutina (Index) --- */
-.days-grid {
-  display: grid;
-  gap: 20px;
-}
-@media (min-width: 768px) {
-  .days-grid { grid-template-columns: repeat(3, 1fr); }
+/* === Contenedor Principal === */
+.app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
-.day-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: var(--shadow-intense);
+h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-vs);
+    text-align: center;
 }
-.day-card h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid var(--border-color);
-  display: flex; align-items: center; gap: 8px;
-}
-.day-card ul {
-  list-style: none; padding: 0;
-}
-.day-card li {
-  margin-bottom: 8px;
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(255,255,255,0.05);
-  display: flex; justify-content: space-between;
-}
-.day-card li strong { color: var(--text-main); font-weight: 600; }
-.day-card li span { font-size: 0.9rem; color: var(--text-muted); }
 
-/* --- Estadísticas y VS --- */
-.stats-grid { display: grid; gap: 25px; margin-top: 15px; }
-
-/* Estilo de la Carta de Progreso */
-.progress-card { padding: 25px; }
-.progress-card h2 { margin-bottom: 20px; border: none; }
-.streak-box { display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px; }
-.streak-item {
-  padding: 18px; border-radius: 14px; width: 48%; box-shadow: var(--shadow-intense);
+.subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
 }
-.streak-num { font-size: 3rem; font-weight: bold; margin: 5px 0; }
 
-/* Colores de las estadísticas */
-.arnau-stats h3, .arnau-stats .streak-item { border: 2px solid var(--accent-arnau); color: var(--accent-arnau); }
-.camats-stats h3, .camats-stats .streak-item { border: 2px solid var(--accent-camats); color: var(--accent-camats); }
-.vs-stats h2 { color: var(--accent-vs); }
+/* === Navegación Fija (Mobile) === */
+.nav-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    z-index: 1000;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+}
 
-/* Gráficos */
+.nav-fixed a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav-fixed a.active {
+    color: var(--color-vs); /* Color activo general */
+}
+
+.nav-fixed a.arnau-active {
+    color: var(--color-arnau);
+}
+
+.nav-fixed a.camats-active {
+    color: var(--color-camats);
+}
+
+.nav-fixed a:hover {
+    background-color: #1e293b;
+}
+
+.nav-fixed span {
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+/* === Tarjetas de Estadísticas (Cards) === */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-strong);
+    text-align: center;
+    border: 1px solid var(--border-soft);
+}
+
+.stat-card h2 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    font-weight: 800;
+}
+
+.stat-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Colores dinámicos para las estadísticas */
+.arnau-stats .stat-card h2,
+.vs-stats .arnau-streak h2 {
+    color: var(--color-arnau);
+}
+
+.camats-stats .stat-card h2,
+.vs-stats .camats-streak h2 {
+    color: var(--color-camats);
+}
+
+/* === Contenedor de Gráficos === */
+.chart-section {
+    background-color: var(--bg-card);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-strong);
+    border: 1px solid var(--border-soft);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chart-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Selectores de Ejercicios (Dropdowns) */
 select {
-  width: 100%; padding: 12px; border-radius: 10px;
-  background: var(--bg-light); color: var(--text-main); border: 1px solid var(--border-color);
-  margin-bottom: 20px; font-size: 1rem; cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    appearance: none; /* Eliminar el estilo por defecto en algunos navegadores */
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.2em;
+    cursor: pointer;
 }
-.chart-container { height: 400px; position: relative; }
 
-/* Widgets de Motivación */
-.widget {
-  background: var(--bg-light); padding: 15px; border-radius: 12px;
-  border: 1px solid var(--border-color); margin-top: 15px;
-  font-size: 0.9rem; color: var(--text-muted);
+/* Estilos de Chart.js */
+.chart-container {
+    height: 300px; /* Altura fija para móviles */
+    width: 100%;
+    margin: 0 auto;
 }
-.widget strong { color: var(--text-main); }
-.widget-quote { border-left: 5px solid var(--accent-arnau); padding-left: 10px; }
-.widget-quote.camats { border-left-color: var(--accent-camats); }
+
+/* Notas de error */
+.error-message {
+    color: #f87171;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #fca5a5;
+    background-color: #fee2e210;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Media Query para Tablet/Desktop */
+@media (min-width: 600px) {
+    body {
+        padding-bottom: 0;
+    }
+    .nav-fixed {
+        position: static;
+        border-top: none;
+        box-shadow: none;
+        background-color: var(--bg-main);
+        margin-bottom: 2rem;
+    }
+    .nav-fixed a {
+        padding: 0.5rem 1rem;
+        flex-direction: row;
+    }
+    .nav-fixed span {
+        font-size: 1rem;
+        margin-left: 8px;
+        margin-top: 0;
+    }
+    .chart-container {
+        height: 350px;
+    }
+    h1 {
+        font-size: 2.25rem;
+    }
+}
