@@ -1,8 +1,9 @@
-// script.js
+// script.js (CORREGIDO - V2)
 
 // ==========================================
 // ⚠️ PEGA AQUÍ LA URL BASE DE PUBLICACIÓN FINAL DEL GOOGLE SHEET
 // ==========================================
+// *** Asegúrate que aquesta línia conté la teva clau '2PACX-1vR...' ***
 const BASE_URL_PUBLISHED = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRblUmox0xuv8DtJfqboC1UXQ8tOEf4aS5PmdrHabaHgOsUdVQbUWtHjKXQF6owpG2xEOU6ekkG2idk/pub"; 
 // GIDs (No cambiar, son los que proporcionaste)
 const URL_ARNAU = `${BASE_URL_PUBLISHED}?gid=0&single=true&output=csv`;
@@ -12,7 +13,7 @@ let chartInstances = {};
 let allExercises = [];
 
 async function init() {
-    // Solo cargamos los datos si estamos en una página de estadísticas
+    // ⚠️ GUARD: Només carregar dades si estem en una pàgina d'estadístiques
     if (!document.body.classList.contains('arnau-stats') && 
         !document.body.classList.contains('camats-stats') && 
         !document.body.classList.contains('vs-stats')) {
@@ -40,8 +41,12 @@ async function init() {
         }
 
     } catch (error) {
-        console.error("Error cargando datos:", error);
-        alert("Error: No se pudieron cargar los datos del Excel. Revisa los permisos y el enlace BASE_URL_PUBLISHED en script.js.");
+        // Mostrarem l'error de forma menys invasiva per evitar bloquejos addicionals
+        console.error("Error FATAL al carregar dades CSV:", error);
+        const header = document.querySelector('header');
+        if (header) {
+             header.insertAdjacentHTML('afterend', '<p style="color:red; text-align:center; padding:10px; border:1px solid red; border-radius:5px; margin-top:15px;">❌ ERROR: No es poden carregar les dades de l\'Excel. Revisa els permisos de publicació.</p>');
+        }
     }
 }
 
@@ -64,6 +69,7 @@ function fetchData(url) {
 // LÓGICA DE STREAK (RACHAS)
 // ==========================================
 function calculateStreak(data, elementId) {
+    // Código de cálculo de streak... (sin cambios)
     let weeklyCounts = {};
     
     data.forEach(row => {
@@ -86,7 +92,6 @@ function calculateStreak(data, elementId) {
         }
     });
 
-    // Se usa tanto en la página individual como en la VS
     if(document.getElementById(elementId)) {
         document.getElementById(elementId).innerText = perfectWeeks;
     }
@@ -98,6 +103,12 @@ function calculateStreak(data, elementId) {
 
 function populateSelect(selectId, exercises) {
     const select = document.getElementById(selectId);
+    // 🔑 Fix: Comprobar si l'element existeix abans d'usar appendChild
+    if (!select) {
+        // console.warn(`Select element with ID "${selectId}" not found on this page.`);
+        return; 
+    }
+    
     exercises.forEach((ex, index) => {
         const option = document.createElement('option');
         option.value = ex;
@@ -139,8 +150,13 @@ function setupIndividualPage(data, name, chartId1, chartId2, streakId) {
         });
     };
 
-    document.getElementById(selectId).addEventListener('change', (e) => renderProgressionChart(e.target.value));
-    renderProgressionChart(document.getElementById(selectId).value);
+    const selectElement = document.getElementById(selectId);
+    if (selectElement) {
+        selectElement.addEventListener('change', (e) => renderProgressionChart(e.target.value));
+        if (selectElement.value) {
+            renderProgressionChart(selectElement.value);
+        }
+    }
     
     // 3. Configurar Gráfico de Volumen (Chart 2)
     renderVolumeChart(data, chartId2, color);
@@ -152,15 +168,13 @@ function renderVolumeChart(data, chartId, color) {
         .filter(row => row['FECHA'] && row['DÍA'])
         .map(row => {
             let totalVolume = 0;
-            // Simulamos un cálculo de volumen muy básico (asumiendo sets*reps fijas por día de rutina)
-            // ESTO ES UNA SIMPLIFICACIÓN: para un cálculo preciso necesitaríamos 
-            // leer sets/reps de un archivo de configuración, pero como no lo tenemos:
-            const multiplier = row['RUTINA'].includes('Body A') ? 40 : 35; // A (fuerza) = menos volumen. B/C = más.
+            // SIMPLIFICACIÓN: Multiplicador ficticio para volumen total
+            const multiplier = row['RUTINA'] && row['RUTINA'].includes('Body A') ? 40 : 35; 
             
             Object.keys(row).slice(3).forEach(exercise => {
                 const peso = parseFloat(String(row[exercise]).replace(',', '.'));
                 if (peso && !isNaN(peso)) {
-                    totalVolume += peso * multiplier; // Peso x Multiplicador ficticio
+                    totalVolume += peso * multiplier;
                 }
             });
             return { x: row['FECHA'], y: totalVolume };
@@ -169,7 +183,7 @@ function renderVolumeChart(data, chartId, color) {
     drawChart(chartId, 'bar', [{
         label: 'Volumen Total (Kg ficticios)',
         data: volumeByDate,
-        backgroundColor: color + '99', // color con transparencia
+        backgroundColor: color + '99', 
         borderColor: color,
         borderWidth: 1
     }], {
@@ -205,8 +219,13 @@ function setupVSPage(dataArnau, dataCamats) {
         });
     };
 
-    document.getElementById('exerciseSelectVS').addEventListener('change', (e) => renderVSChart(e.target.value));
-    renderVSChart(document.getElementById('exerciseSelectVS').value);
+    const selectElement = document.getElementById('exerciseSelectVS');
+    if (selectElement) {
+        selectElement.addEventListener('change', (e) => renderVSChart(e.target.value));
+        if (selectElement.value) {
+            renderVSChart(selectElement.value);
+        }
+    }
     
     // 3. Gráfico VS (Volumen Semanal)
     renderVSVolumeChart(dataArnau, dataCamats);
@@ -245,8 +264,8 @@ function renderVSVolumeChart(dataArnau, dataCamats) {
     ], {
         title: { display: false },
         scales: { 
-            x: { stacked: false, type: 'category', labels: allLabels, ticks: { maxRotation: 45, minRotation: 45 } }, 
-            y: { beginAtZero: true, title: { display: true, text: 'Kg Totales (Est.)' } }
+            x: { stacked: false, type: 'category', labels: allLabels, ticks: { color: '#9ca3af', maxRotation: 45, minRotation: 45 } }, 
+            y: { beginAtZero: true, title: { display: true, text: 'Kg Totales (Est.)' }, ticks: { color: '#9ca3af' } }
         }
     });
 }
@@ -262,7 +281,7 @@ function calculateWeeklyVolume(data, name) {
             const weekKey = `${date.getFullYear()}-W${week}`;
 
             // Volumen ficticio (mismo cálculo que en la página individual)
-            const multiplier = row['RUTINA'].includes('Body A') ? 40 : 35; 
+            const multiplier = row['RUTINA'] && row['RUTINA'].includes('Body A') ? 40 : 35; 
             let sessionVolume = 0;
             Object.keys(row).slice(3).forEach(exercise => {
                 const peso = parseFloat(String(row[exercise]).replace(',', '.'));
@@ -286,7 +305,10 @@ function calculateWeeklyVolume(data, name) {
 // FUNCIÓN GENERAL DE DIBUJO DE GRÁFICOS
 // ==========================================
 function drawChart(chartId, type, datasets, options) {
-    const ctx = document.getElementById(chartId).getContext('2d');
+    const ctx = document.getElementById(chartId);
+    if (!ctx) return; // FIX: Si el canvas no existe, no intentar dibujar.
+    
+    const ctx2D = ctx.getContext('2d');
     
     if (chartInstances[chartId]) chartInstances[chartId].destroy();
 
@@ -309,7 +331,7 @@ function drawChart(chartId, type, datasets, options) {
         }
     };
     
-    chartInstances[chartId] = new Chart(ctx, {
+    chartInstances[chartId] = new Chart(ctx2D, {
         type: type,
         data: { datasets: datasets },
         options: Chart.helpers.merge(defaultOptions, options)
