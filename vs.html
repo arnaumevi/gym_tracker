@@ -1,60 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Desafío VS ⚔️</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Comparativa VS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./style.css" rel="stylesheet" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script defer src="./script.js"></script>
 </head>
 <body class="vs-stats">
     <div class="app">
-        <header>
-            <h1>⚔️ Desafío Máxima Fuerza VS</h1>
-            <p style="color:var(--accent-vs);">El progreso de uno es la motivación del otro.</p>
-            <div class="nav-grid">
-                <a href="index.html" class="btn-nav btn-back">⬅️ Rutina</a>
-                <a href="arnau.html" class="btn-nav btn-arnau">Progreso Arnau 📈</a>
-                <a href="camats.html" class="btn-nav btn-camats">Progreso Camats 📈</a>
-            </div>
-        </header>
+        <h1>🆚 Duelo de Titanes</h1>
+        <p class="subtitle">Comparativa directa de progreso y consistencia.</p>
 
         <div class="stats-grid">
-            <section class="day-card progress-card">
-                <h2>🏆 Rachas Semanales (3 Días)</h2>
-                <div class="streak-box">
-                    <div class="streak-item" style="border-color: var(--accent-arnau);">
-                        <h3 style="color:var(--accent-arnau);">Arnau</h3>
-                        <p class="streak-num" id="streak-arnau-vs">0</p>
-                        <span>Semanas</span>
-                    </div>
-                    <div class="streak-item" style="border-color: var(--accent-camats);">
-                        <h3 style="color:var(--accent-camats);">Camats</h3>
-                        <p class="streak-num" id="streak-camats-vs">0</p>
-                        <span>Semanas</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="day-card progress-card">
-                <h2>📈 Cara a Cara en Fuerza Máxima</h2>
-                <label for="exerciseSelectVS" style="font-size:0.9rem; color:var(--text-muted);">Selecciona ejercicio para comparar:</label>
-                <select id="exerciseSelectVS"></select>
-                <div class="chart-container">
-                    <canvas id="vsChart"></canvas>
-                </div>
-            </section>
-            
-            <section class="day-card progress-card">
-                <h2>⚖️ Volumen Total Levantado (Últimas 4 Semanas)</h2>
-                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">¿Quién mueve más kilos en total?</p>
-                <div class="chart-container">
-                    <canvas id="vsVolumeChart"></canvas>
-                </div>
-            </section>
+            <div class="stat-card arnau-streak">
+                <h2 id="streak-arnau-vs">0</h2>
+                <p>🔵 Semanas 3+ Arnau</p>
+            </div>
+            <div class="stat-card camats-streak">
+                <h2 id="streak-camats-vs">0</h2>
+                <p>🟢 Semanas 3+ Camats</p>
+            </div>
+            <div class="stat-card">
+                <h2>🏆</h2>
+                <p>Mejor Levantamiento Global</p>
+            </div>
         </div>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Comparativa de Fuerza Máxima</h3>
+                <select id="exerciseSelectVS"></select>
+            </div>
+            <div class="chart-container">
+                <canvas id="vsChart1"></canvas>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Volumen Semanal (Últimas 4)</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="vsChart2"></canvas>
+            </div>
+        </section>
+        
+        <section class="chart-section">
+            <div class="chart-header">
+                <h3>Consistencia (Sesiones por Semana)</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="vsChart3"></canvas>
+            </div>
+        </section>
+
     </div>
-    <script src="script.js"></script>
+
+    <nav class="nav-fixed">
+        <a href="arnau.html">
+            <span>🔵</span>
+            <span>Arnau</span>
+        </a>
+        <a href="camats.html">
+            <span>🟢</span>
+            <span>Camats</span>
+        </a>
+        <a href="vs.html" class="active">
+            <span>🆚</span>
+            <span>VS</span>
+        </a>
+    </nav>
 </body>
 </html>
