@@ -1,10 +1,11 @@
-// script.js (CORREGIDO - V3: Mobile-First, 3 Gráficos, Volumen Semanal)
+// script.js (CORREGIT - V6: Versió Catalana 100% funcional)
 
 // ==========================================
 // ⚠️ PEGA AQUÍ LA URL BASE DE PUBLICACIÓN FINAL DEL GOOGLE SHEET
+// ¡¡Aquesta línia és CRÍTICA per tal que els gràfics funcionin!!
 // ==========================================
 const BASE_URL_PUBLISHED = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRblUmox0xuv8DtJfqboC1UXQ8tOEf4aS5PmdrHabaHgOsUdVQbUWtHjKXQF6owpG2xEOU6ekkG2idk/pub"; 
-// GIDs (No cambiar, son los que proporcionaste)
+// GIDs (No canviar, són els que vas proporcionar)
 const URL_ARNAU = `${BASE_URL_PUBLISHED}?gid=0&single=true&output=csv`;
 const URL_CAMATS = `${BASE_URL_PUBLISHED}?gid=1482168485&single=true&output=csv`;
 
@@ -12,12 +13,12 @@ let chartInstances = {};
 let allExercises = [];
 
 // ==========================================
-// FUNCIÓN DE INICIO
+// FUNCIÓ D'INICI
 // ==========================================
 async function init() {
     const pageClass = document.body.className;
     
-    // GUARD: Sólo cargar datos si estamos en una página de estadísticas
+    // GUARD: Només carregar dades si estem en una pàgina d'estadístiques
     if (!pageClass.includes('stats')) {
         return; 
     }
@@ -28,31 +29,31 @@ async function init() {
             fetchData(URL_CAMATS)
         ]);
         
-        // Obtenemos todos los ejercicios una vez (basado en la primera fila de Arnau)
+        // Obtenim tots els exercicis una vegada (basat en la primera fila d'Arnau)
         if (dataArnau.length > 0) {
             allExercises = Object.keys(dataArnau[0]).slice(3);
         }
 
-        // Ejecutar las funciones dependiendo de la página
+        // Executar les funcions depenent de la pàgina
         if (pageClass.includes('arnau-stats')) {
-            setupIndividualPage(dataArnau, 'arnau', '#3b82f6'); // Azul
+            setupIndividualPage(dataArnau, 'Arnau', '#3b82f6'); // Blau
         } else if (pageClass.includes('camats-stats')) {
-            setupIndividualPage(dataCamats, 'camats', '#10b981'); // Verde
+            setupIndividualPage(dataCamats, 'Camats', '#10b981'); // Verd
         } else if (pageClass.includes('vs-stats')) {
             setupVSPage(dataArnau, dataCamats);
         }
 
     } catch (error) {
-        console.error("Error FATAL al carregar dades CSV:", error);
+        console.error("Error FATAL en carregar dades CSV:", error);
         const app = document.querySelector('.app');
         if (app) {
-             app.insertAdjacentHTML('afterbegin', '<p class="error-message">❌ ERROR: No se pueden cargar las datos. Revisa los permisos de publicación del Excel o la URL base.</p>');
+             app.insertAdjacentHTML('afterbegin', '<p class="error-message">❌ ERROR: No s\'han pogut carregar les dades. Revisa que la URL de publicació a "script.js" sigui correcta i que l\'Excel estigui publicat.</p>');
         }
     }
 }
 
 // ==========================================
-// LÓGICA GENERAL DE DATOS
+// LÒGICA GENERAL DE DADES (Sense Canvis)
 // ==========================================
 function fetchData(url) {
     return new Promise((resolve, reject) => {
@@ -70,7 +71,6 @@ function getWeekKey(dateStr) {
     const date = new Date(dateStr);
     if (isNaN(date)) return null;
     
-    // Obtener el número de semana ISO 8601 (con ajuste para el día de la semana)
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     const dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
@@ -80,13 +80,8 @@ function getWeekKey(dateStr) {
     return `${d.getUTCFullYear()}-W${weekNo}`;
 }
 
-/**
- * Calcula el volumen total estimado para una sesión.
- * Asume 3-4 series de 8-12 reps (multiplicador fijo).
- */
 function calculateSessionVolume(row) {
     let totalVolume = 0;
-    // Multiplicador ficticio: Más alto para Full Body A/B, ligeramente menor para C.
     const multiplier = row['RUTINA'] && row['RUTINA'].includes('Body C') ? 35 : 40; 
     
     Object.keys(row).slice(3).forEach(exercise => {
@@ -99,10 +94,10 @@ function calculateSessionVolume(row) {
 }
 
 // ==========================================
-// LÓGICA DE STREAK Y FRECUENCIA
+// LÒGICA DE STREAK I FREQÜÈNCIA (Sense Canvis en la lògica)
 // ==========================================
 function calculateFrequency(data) {
-    let weeklyCounts = {}; // { 'YYYY-Wxx': 3 }
+    let weeklyCounts = {}; 
 
     data.forEach(row => {
         const hasData = calculateSessionVolume(row) > 0;
@@ -122,7 +117,7 @@ function calculateStreak(data, elementId) {
     
     let perfectWeeks = 0;
     Object.values(weeklyCounts).forEach(count => {
-        if (count >= 3) { // Consideramos 'perfecta' si hay 3 o más sesiones
+        if (count >= 3) { 
             perfectWeeks++;
         }
     });
@@ -134,16 +129,17 @@ function calculateStreak(data, elementId) {
 }
 
 // ==========================================
-// LÓGICA DE PÁGINAS INDIVIDUALES (Arnau/Camats)
+// LÒGICA DE PÀGINES INDIVIDUALS (Arnau/Camats)
 // ==========================================
 
 function populateSelect(selectId, exercises) {
     const select = document.getElementById(selectId);
-    if (!select) return; // FIX: Comprobar si existe
+    if (!select) return; 
     
     exercises.forEach((ex, index) => {
         const option = document.createElement('option');
         option.value = ex;
+        // Netejar el text del selector per a la visualització
         option.textContent = ex.replace(' (kg)', '').replace(' / ', ' - ');
         if(index === 0) option.selected = true;
         select.appendChild(option);
@@ -161,40 +157,39 @@ function getProgressionPoints(data, exercise) {
         .filter(p => p !== null);
 }
 
-
 function setupIndividualPage(data, name, color) {
     // 1. Calcular Streak
-    calculateStreak(data, `streak-${name}`);
+    calculateStreak(data, `streak-${name.toLowerCase()}`);
 
-    // 2. Configurar Gráfico de Progresión (Chart 1)
-    const selectId = `exerciseSelect${name.charAt(0).toUpperCase() + name.slice(1)}`;
+    // 2. Configurar Gràfic de Progressió (Chart 1)
+    const selectId = `exerciseSelect${name}`;
     
     populateSelect(selectId, allExercises);
 
     const renderProgressionChart = (exercise) => {
         const points = getProgressionPoints(data, exercise);
-        drawChart(`${name}Chart1`, 'line', [{
-            label: `Progreso ${name}`,
+        drawChart(`${name.toLowerCase()}Chart1`, 'line', [{
+            label: `Progrés ${name}`,
             data: points,
             borderColor: color,
-            backgroundColor: `${color}40`, // Transparente
+            backgroundColor: `${color}40`, 
             tension: 0.3,
             pointRadius: 4
         }], {
-            title: { text: `Progresión de Peso en ${exercise.replace(' (kg)', '')}` },
-            scales: { y: { beginAtZero: true, title: { text: 'Kg Máximo' } } }
+            title: { text: `Progressió de Pes a ${exercise.replace(' (kg)', '')}` },
+            scales: { y: { beginAtZero: true, title: { text: 'Kg Màxim' } } }
         });
     };
 
     const selectElement = document.getElementById(selectId);
     if (selectElement) {
-        selectElement.addEventListener('change', (e) => renderProgressionChart(e.target.value));
         if (selectElement.value) {
             renderProgressionChart(selectElement.value);
         }
+        selectElement.addEventListener('change', (e) => renderProgressionChart(e.target.value));
     }
     
-    // 3. Configurar Gráfico de Volumen Diario (Chart 2)
+    // 3. Configurar Gràfic de Volum Diari (Chart 2)
     const volumeByDate = data
         .filter(row => row['FECHA'] && row['RUTINA'])
         .map(row => ({ 
@@ -203,33 +198,33 @@ function setupIndividualPage(data, name, color) {
         }))
         .filter(d => d.y > 0);
 
-    drawChart(`${name}Chart2`, 'bar', [{
-        label: 'Volumen Total (Kg Est.)',
+    drawChart(`${name.toLowerCase()}Chart2`, 'bar', [{
+        label: 'Volum Total (Kg Est.)',
         data: volumeByDate,
         backgroundColor: color + '99', 
         borderColor: color,
         borderWidth: 1
     }], {
-        title: { text: 'Volumen Estimado por Sesión' },
+        title: { text: 'Volum Estimat per Sessió' },
         scales: { 
             x: { stacked: false }, 
-            y: { beginAtZero: true, title: { text: 'Kg Totales (Est.)' } }
+            y: { beginAtZero: true, title: { text: 'Kg Totals (Est.)' } }
         }
     });
 
-    // 4. Configurar Gráfico de Frecuencia Semanal (Chart 3)
-    renderFrequencyChart(data, `${name}Chart3`, color, `Frecuencia Semanal ${name}`);
+    // 4. Configurar Gràfic de Freqüència Setmanal (Chart 3)
+    renderFrequencyChart(data, `${name.toLowerCase()}Chart3`, color, `Freqüència Setmanal ${name}`);
 }
 
 // ==========================================
-// LÓGICA DE PÁGINA VS
+// LÒGICA DE PÀGINA VS (Textos en Català)
 // ==========================================
 function setupVSPage(dataArnau, dataCamats) {
     // 1. Streaks
     calculateStreak(dataArnau, 'streak-arnau-vs');
     calculateStreak(dataCamats, 'streak-camats-vs');
 
-    // 2. Gráfico VS (Fuerza Máxima)
+    // 2. Gràfic VS (Força Màxima)
     populateSelect('exerciseSelectVS', allExercises);
 
     const renderVSChart = (exercise) => {
@@ -240,29 +235,29 @@ function setupVSPage(dataArnau, dataCamats) {
             { label: 'Arnau', data: pointsArnau, borderColor: '#3b82f6', backgroundColor: '#3b82f640', tension: 0.3, pointRadius: 4 },
             { label: 'Camats', data: pointsCamats, borderColor: '#10b981', backgroundColor: '#10b98140', tension: 0.3, pointRadius: 4 }
         ], {
-            title: { text: `Comparativa de Progreso en ${exercise.replace(' (kg)', '')}` },
-            scales: { y: { beginAtZero: true, title: { text: 'Kg Máximo' } } }
+            title: { text: `Comparativa de Progrés a ${exercise.replace(' (kg)', '')}` },
+            scales: { y: { beginAtZero: true, title: { text: 'Kg Màxim' } } }
         });
     };
 
     const selectElement = document.getElementById('exerciseSelectVS');
     if (selectElement) {
-        selectElement.addEventListener('change', (e) => renderVSChart(e.target.value));
         if (selectElement.value) {
             renderVSChart(selectElement.value);
         }
+        selectElement.addEventListener('change', (e) => renderVSChart(e.target.value));
     }
     
-    // 3. Gráfico VS (Volumen Semanal)
+    // 3. Gràfic VS (Volum Setmanal)
     renderVSVolumeChart(dataArnau, dataCamats);
     
-    // 4. Gráfico VS (Frecuencia Semanal)
+    // 4. Gràfic VS (Freqüència Setmanal)
     renderVSFrequencyChart(dataArnau, dataCamats);
 }
 
-// Calcula el volumen semanal y las etiquetas
+// Calcula el volum setmanal i les etiquetes
 function calculateWeeklyVolume(data) {
-    let weeklyVolume = {}; // { 'YYYY-Wxx': 15000 }
+    let weeklyVolume = {}; 
     
     data.forEach(row => {
         if (row['FECHA'] && row['RUTINA']) {
@@ -287,63 +282,61 @@ function renderVSVolumeChart(dataArnau, dataCamats) {
     const [volumesArnau, labelsArnau] = calculateWeeklyVolume(dataArnau);
     const [volumesCamats, labelsCamats] = calculateWeeklyVolume(dataCamats);
     
-    // Combina todas las etiquetas de semana y toma las últimas 4
     const allLabels = [...new Set([...labelsArnau, ...labelsCamats])].sort();
     const last4Labels = allLabels.slice(-4); 
 
     const mapVolumeToLabels = (volumeData, labels) => {
         const map = new Map();
         labels.forEach((label, index) => map.set(label, volumeData[index]));
-        return last4Labels.map(label => map.get(label) || 0); // Rellenar con 0 si no hay datos en esa semana
+        return last4Labels.map(label => map.get(label) || 0); 
     };
 
     const dataArnauMapped = mapVolumeToLabels(volumesArnau, labelsArnau);
     const dataCamatsMapped = mapVolumeToLabels(volumesCamats, labelsCamats);
     
-    // Mapeamos las etiquetas de WXX a "Semana XX" para mejor visualización
-    const displayLabels = last4Labels.map(label => `Semana ${label.split('-W')[1]}`);
+    const displayLabels = last4Labels.map(label => `Setmana ${label.split('-W')[1]}`);
 
 
     drawChart('vsChart2', 'bar', [
         { label: 'Arnau', data: dataArnauMapped, backgroundColor: '#3b82f699', borderColor: '#3b82f6', borderWidth: 1 },
         { label: 'Camats', data: dataCamatsMapped, backgroundColor: '#10b98199', borderColor: '#10b981', borderWidth: 1 }
     ], {
-        title: { text: 'Volumen Total Semanal (Últimas 4 Semanas)' },
+        title: { text: 'Volum Total Setmanal (Últimes 4 Setmanes)' },
         scales: { 
             x: { stacked: false, type: 'category', labels: displayLabels }, 
-            y: { beginAtZero: true, title: { text: 'Kg Totales (Est.)' } }
+            y: { beginAtZero: true, title: { text: 'Kg Totals (Est.)' } }
         }
     });
 }
 
-// Gráfico de Frecuencia Semanal Individual
+// Gràfic de Freqüència Setmanal Individual
 function renderFrequencyChart(data, chartId, color, title) {
     const weeklyCounts = calculateFrequency(data);
     const labels = Object.keys(weeklyCounts).sort();
     const counts = labels.map(label => weeklyCounts[label]);
     const last4Labels = labels.slice(-4);
     const last4Counts = counts.slice(-4);
-    const displayLabels = last4Labels.map(label => `Semana ${label.split('-W')[1]}`);
+    const displayLabels = last4Labels.map(label => `Setmana ${label.split('-W')[1]}`);
 
 
     drawChart(chartId, 'bar', [
         {
-            label: 'Sesiones por Semana',
+            label: 'Sessions per Setmana',
             data: last4Counts,
             backgroundColor: color + 'cc',
             borderColor: color,
             borderWidth: 1
         }
     ], {
-        title: { text: title + ' (Últimas 4 Semanas)' },
+        title: { text: title + ' (Últimes 4 Setmanes)' },
         scales: {
             x: { type: 'category', labels: displayLabels },
-            y: { beginAtZero: true, stepSize: 1, title: { text: 'Nº Sesiones' } }
+            y: { beginAtZero: true, stepSize: 1, title: { text: 'Núm. Sessions' } }
         }
     });
 }
 
-// Gráfico de Frecuencia Semanal VS
+// Gràfic de Freqüència Setmanal VS
 function renderVSFrequencyChart(dataArnau, dataCamats) {
     const weeklyCountsArnau = calculateFrequency(dataArnau);
     const weeklyCountsCamats = calculateFrequency(dataCamats);
@@ -353,7 +346,7 @@ function renderVSFrequencyChart(dataArnau, dataCamats) {
 
     const allLabels = [...new Set([...labelsArnau, ...labelsCamats])].sort();
     const last4Labels = allLabels.slice(-4);
-    const displayLabels = last4Labels.map(label => `Semana ${label.split('-W')[1]}`);
+    const displayLabels = last4Labels.map(label => `Setmana ${label.split('-W')[1]}`);
 
     const mapCountsToLabels = (weeklyCounts) => {
         const map = new Map(Object.entries(weeklyCounts));
@@ -367,17 +360,15 @@ function renderVSFrequencyChart(dataArnau, dataCamats) {
         { label: 'Arnau', data: dataArnauMapped, backgroundColor: '#3b82f699', borderColor: '#3b82f6', borderWidth: 1 },
         { label: 'Camats', data: dataCamatsMapped, backgroundColor: '#10b98199', borderColor: '#10b981', borderWidth: 1 }
     ], {
-        title: { text: 'Comparativa de Frecuencia Semanal (Sesiones)' },
+        title: { text: 'Comparativa de Freqüència Setmanal (Sessions)' },
         scales: {
             x: { stacked: false, type: 'category', labels: displayLabels },
-            y: { beginAtZero: true, stepSize: 1, title: { text: 'Nº Sesiones' } }
+            y: { beginAtZero: true, stepSize: 1, title: { text: 'Núm. Sessions' } }
         }
     });
 }
 
-// ==========================================
-// FUNCIÓN GENERAL DE DIBUJO DE GRÁFICOS
-// ==========================================
+// Funció general de dibuix de gràfics (sense canvis)
 function drawChart(chartId, type, datasets, options) {
     const ctx = document.getElementById(chartId);
     if (!ctx) return;
@@ -390,7 +381,7 @@ function drawChart(chartId, type, datasets, options) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { labels: { color: '#f8fafc' } }, // Texto blanco
+            legend: { labels: { color: '#f8fafc' } }, 
             tooltip: { mode: 'index', intersect: false, bodyFont: { family: 'Inter', size: 14 }, titleFont: { family: 'Inter', size: 16 } },
             title: { display: true, color: '#f8fafc', font: { size: 16 } }
         },
@@ -398,7 +389,7 @@ function drawChart(chartId, type, datasets, options) {
             x: { 
                 type: 'category', 
                 ticks: { color: '#94a3b8', maxTicksLimit: 10, maxRotation: 45, minRotation: 45 },
-                grid: { color: '#1e293b50' } // Rejilla sutil
+                grid: { color: '#1e293b50' } 
             },
             y: { 
                 ticks: { color: '#94a3b8' },
