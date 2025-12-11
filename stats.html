@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas VS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>Progreso y VS ⚔️</h1>
+            <a href="index.html" class="btn-nav">⬅️ Volver a Rutina</a>
+        </header>
+
+        <div class="stats-grid">
+            <section class="day-card">
+                <h2>🔥 Rachas (Semanas Completas)</h2>
+                <div class="streak-box">
+                    <div class="streak-item" style="border: 1px solid #a5f3fc;">
+                        <h3 style="color:#a5f3fc;">Arnau</h3>
+                        <p class="streak-num" id="streak-arnau">0</p>
+                        <span>Semanas</span>
+                    </div>
+                    <div class="streak-item" style="border: 1px solid #22c55e;">
+                        <h3 style="color:#22c55e;">Camats</h3>
+                        <p class="streak-num" id="streak-camats">0</p>
+                        <span>Semanas</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="day-card">
+                <h2>📈 Comparativa por Ejercicio</h2>
+                <label for="exerciseSelect" style="font-size:0.9rem; color:var(--muted);">Elige ejercicio:</label>
+                <select id="exerciseSelect"></select>
+                
+                <div style="height: 350px; width: 100%;">
+                    <canvas id="gymChart"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
