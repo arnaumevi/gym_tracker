@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Desafío VS ⚔️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body class="vs-stats">
+    <div class="app">
+        <header>
+            <h1>⚔️ Desafío Máxima Fuerza VS</h1>
+            <p style="color:var(--accent-vs);">El progreso de uno es la motivación del otro.</p>
+            <div class="nav-grid">
+                <a href="index.html" class="btn-nav btn-back">⬅️ Rutina</a>
+                <a href="arnau.html" class="btn-nav btn-arnau">Progreso Arnau 📈</a>
+                <a href="camats.html" class="btn-nav btn-camats">Progreso Camats 📈</a>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <section class="day-card progress-card">
+                <h2>🏆 Rachas Semanales (3 Días)</h2>
+                <div class="streak-box">
+                    <div class="streak-item" style="border-color: var(--accent-arnau);">
+                        <h3 style="color:var(--accent-arnau);">Arnau</h3>
+                        <p class="streak-num" id="streak-arnau-vs">0</p>
+                        <span>Semanas</span>
+                    </div>
+                    <div class="streak-item" style="border-color: var(--accent-camats);">
+                        <h3 style="color:var(--accent-camats);">Camats</h3>
+                        <p class="streak-num" id="streak-camats-vs">0</p>
+                        <span>Semanas</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="day-card progress-card">
+                <h2>📈 Cara a Cara en Fuerza Máxima</h2>
+                <label for="exerciseSelectVS" style="font-size:0.9rem; color:var(--text-muted);">Selecciona ejercicio para comparar:</label>
+                <select id="exerciseSelectVS"></select>
+                <div class="chart-container">
+                    <canvas id="vsChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="day-card progress-card">
+                <h2>⚖️ Volumen Total Levantado (Últimas 4 Semanas)</h2>
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">¿Quién mueve más kilos en total?</p>
+                <div class="chart-container">
+                    <canvas id="vsVolumeChart"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
