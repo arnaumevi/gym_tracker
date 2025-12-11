@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <title>Rutina Gimnàs 3 Dies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./style.css" rel="stylesheet" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script defer src="./script.js"></script>
+    <style>
+        /* Estils específics per a la rutina, adaptats al nou tema fosc */
+        .routine-content {
+            padding: 1rem;
+        }
+        .routine-content h2 {
+            color: var(--color-vs);
+            margin-top: 1.5rem;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        .exercise-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .exercise-item {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--color-arnau); /* Color d'accent per a la llista */
+        }
+        .exercise-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .exercise-sets {
+            color: var(--color-vs);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        .exercise-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="rutina-page">
+    <div class="app">
+        <h1>📝 Rutina Gimnàs 3 Dies</h1>
+        <p class="subtitle">Full Body A, B i C - Tres dies a la setmana.</p>
+
+        <div class="routine-content">
+            
+            <section>
+                <h2>Dia 1: Full Body A</h2>
+                <ul class="exercise-list">
+                    <li class="exercise-item"><div class="exercise-name"><span>Esquats amb Barra</span><span class="exercise-sets">3x5-8</span></div><p class="exercise-desc">Èmfasi en força i sobrecàrrega progressiva.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Press Banca</span><span class="exercise-sets">3x5-8</span></div><p class="exercise-desc">Prioritat al pectoral, busca moure el màxim pes que puguis controlar.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Dominades / Estirada Polea Alta</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Si fas dominades, busca repeticions controlades. Si és estirada, concentra't en la retracció escapular.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Pes Mort Romanès</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Per isquios i glutis. Prioritza l'estirament i la tècnica sobre el pes.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Press Militar</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Press d'espatlla, millor dret per al core. Si és mancuerna, tria mancuernes.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Rem amb Barra</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Busca estirar cap al melic, sentint la contracció de l'esquena.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Curl Bíceps</span><span class="exercise-sets">2x12-15</span></div><p class="exercise-desc">Assegura una bona connexió ment-múscul i congestió.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Tríceps Fons / Polea</span><span class="exercise-sets">2x12-15</span></div><p class="exercise-desc">Concentra't en el bloqueig final del colze.</p></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Dia 2: Full Body B</h2>
+                <ul class="exercise-list">
+                    <li class="exercise-item"><div class="exercise-name"><span>Premsa / Esquat Hack</span><span class="exercise-sets">3x10-15</span></div><p class="exercise-desc">Alt volum. Busca la cremor muscular.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Press Inclinat Mancuernas</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Per donar èmfasi a la part superior del pit.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Rem Mancuerna / Màquina</span><span class="exercise-sets">3x10-15</span></div><p class="exercise-desc">Unilateral o en màquina. Estira amb el colze per treballar l'esquena.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Pes Mort Cames Rígides</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Variant enfocada a isquiotibials i gluti. Flexió mínima de genoll.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Elevacions Laterals</span><span class="exercise-sets">3x15-20</span></div><p class="exercise-desc">Moviment lleuger, per al deltoide mitjà.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Face Pulls / Deltoide Posterior</span><span class="exercise-sets">3x15-20</span></div><p class="exercise-desc">Per a la salut de l'espatlla i deltoide posterior.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Bíceps + Tríceps en supersèrie</span><span class="exercise-sets">2x12-15</span></div><p class="exercise-desc">Combina un exercici de bíceps amb un de tríceps sense descans entre ells.</p></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Dia 3: Full Body C</h2>
+                <ul class="exercise-list">
+                    <li class="exercise-item"><div class="exercise-name"><span>Esquats Frontal / Copes</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Èmfasi en quàdriceps, mantén el tors dret.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Press Espatlla Mancuernas</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Alternativa al press militar amb barra.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Dominades Supines / Estirada Estreta</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Èmfasi en el dorsal i bíceps. Agarre més tancat i amb palmells cap a tu (supí).</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Hip Thrust</span><span class="exercise-sets">3x8-12</span></div><p class="exercise-desc">Per al gluti. Busca la màxima contracció a dalt.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Rem Baix Politja</span><span class="exercise-sets">3x10-15</span></div><p class="exercise-desc">Rem assegut. Estira bé a l'inici i contrau l'esquena al final.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Obertures / Cable Cross</span><span class="exercise-sets">3x12-15</span></div><p class="exercise-desc">Per aïllar el pectoral i donar-li un bon estirament i contracció.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Braços (1 bíceps + 1 tríceps)</span><span class="exercise-sets">2x12-15</span></div><p class="exercise-desc">Tria els teus favorits i fes-los amb bona tècnica.</p></li>
+                    <li class="exercise-item"><div class="exercise-name"><span>Core / Abdomen</span><span class="exercise-sets">3 sèries</span></div><p class="exercise-desc">Combina planxes, elevacions de cames o crunch a la politja.</p></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <nav class="nav-fixed">
+        <a href="rutina.html" class="active">
+            <span>📝</span>
+            <span>Rutina</span>
+        </a>
+        <a href="arnau.html">
+            <span>🔵</span>
+            <span>Arnau</span>
+        </a>
+        <a href="camats.html">
+            <span>🟢</span>
+            <span>Camats</span>
+        </a>
+        <a href="vs.html">
+            <span>🆚</span>
+            <span>VS</span>
+        </a>
+    </nav>
+</body>
+</html>
